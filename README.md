@@ -2120,7 +2120,7 @@ Citizen tracks progress
 
 > **Turning citizen voices into actionable public-service complaints.**
 
-**Team Janova**  
+**Idea Hunters**  
 **Sri Eshwar College of Engineering**
 
 ---
