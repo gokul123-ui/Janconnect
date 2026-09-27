@@ -1,73 +1,99 @@
-JanConnect — Unified Spring Boot Application
-Overview
-JanConnect is a citizen grievance platform that runs as a single Spring Boot application serving both the frontend and backend from http://localhost:8081.
+# JanConnect — AI-Powered Citizen Grievance Navigator
 
-Architecture
-Browser → http://localhost:8081
-             │
-             ▼
-    Spring Boot (port 8081)
-    ├── /                    → React Frontend (index.html)
-    ├── /assets/**           → Static JS/CSS/Images
-    ├── /api/auth/**         → Authentication APIs
-    ├── /api/complaints/**   → Complaint APIs
-    ├── /api/ai/**           → AI Classification API
-    └── /actuator/health     → Health Check
-             │
-             ▼
-    MySQL (localhost:3306/janconnect)
-Running the Application
-Prerequisites
-Java 21
-Maven (or use included mvnw)
-MySQL 8.x running on localhost:3306
-Steps
-Start MySQL and ensure the janconnect database exists (or it will be created automatically)
+JanConnect is a multilingual citizen grievance platform that helps people report public-service problems through voice or text.
 
-Set environment variable for DB password (optional — defaults to Gokul@2008):
+The application understands the citizen's grievance, identifies missing information, routes the complaint to the appropriate department, generates a structured complaint, allows the citizen to review and confirm it, and provides complaint tracking.
 
-$env:DB_PASSWORD = "your_mysql_password"
-Run the application:
+JanConnect runs as a **single Spring Boot application** that serves both the frontend and backend.
 
-cd jan
-.\mvnw.cmd spring-boot:run
-Or run JanConnectApplication.java directly from IntelliJ IDEA.
+---
 
-Open browser: http://localhost:8081
+## 🚀 Overview
 
-Demo Accounts
-Email	Password	Role
-demo@janconnect.com	Demo@123	Citizen
-citizen@janconnect.com	Citizen@123	Citizen
-admin@janconnect.com	Admin@123	Admin
-API Endpoints
-Authentication
-POST /api/auth/register — Register new user
-POST /api/auth/login — Login (returns JWT)
-GET /api/auth/me — Get current user (requires JWT)
-POST /api/auth/logout — Logout
-Complaints
-POST /api/complaints — Create complaint
-GET /api/complaints — List user's complaints
-GET /api/complaints/{id} — Get complaint by ID
-PUT /api/complaints/{id} — Update complaint
-DELETE /api/complaints/{id} — Delete complaint
-Evidence & Location
-POST /api/complaints/{id}/evidence — Upload photo evidence (max 10MB)
-GET /api/complaints/{id}/timeline — Get complaint timeline
-AI
-POST /api/ai/classify — AI grievance classification
-Configuration
-Edit src/main/resources/application.properties:
+Citizens may face difficulties when reporting issues such as:
 
-server.port=8081
-spring.datasource.password=${DB_PASSWORD:Gokul@2008}
-jwt.secret=${JWT_SECRET:your-secret}
-ai.api.key=${AI_API_KEY:}
-Frontend Rebuild
-If you modify the React frontend:
+- Water supply problems
+- Electricity issues
+- Road problems
+- Drainage complaints
+- Garbage/waste management
 
-cd C:\Users\rajas\Downloads\JanConnect\frontend
-npm run build
-Copy-Item dist\* -Destination ..\jan\jan\src\main\resources\static -Recurse -Force
-Then restart the Spring Boot application.
+They may not know:
+
+- Which department is responsible
+- What information is required
+- How to formally describe the issue
+- How to track their complaint
+
+JanConnect simplifies this process using AI-assisted grievance understanding and multilingual interaction.
+
+---
+
+## ✨ Key Features
+
+### 🔐 Authentication
+
+- User registration
+- User login
+- JWT-based authentication
+- BCrypt password hashing
+- Logout
+- Protected APIs
+- Demo citizen accounts
+- Admin role support
+
+### 🌐 Multilingual Support
+
+Supports:
+
+- English
+- Tamil
+- Hindi
+
+### 🎙️ Grievance Input
+
+Citizens can provide complaints using:
+
+- Voice input
+- Text input
+
+### 🤖 AI Grievance Processing
+
+JanConnect can:
+
+1. Understand the grievance
+2. Extract important information
+3. Identify the complaint category
+4. Detect missing information
+5. Identify the responsible department
+6. Determine priority
+7. Generate a structured complaint
+
+### 📝 Complaint Workflow
+
+The complete workflow is:
+
+```text
+Voice/Text Input
+       ↓
+AI Understands Grievance
+       ↓
+Check Missing Information
+       ↓
+Identify Department
+       ↓
+Generate Structured Complaint
+       ↓
+Citizen Reviews Complaint
+       ↓
+Citizen Confirms
+       ↓
+Add Photo / Location
+       ↓
+Submit Complaint
+       ↓
+Generate Complaint ID
+       ↓
+Track Complaint Timeline
+       ↓
+Resolution
