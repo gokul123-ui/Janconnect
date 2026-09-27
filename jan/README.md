@@ -1,101 +1,64 @@
-# JanConnect — Unified Spring Boot Application
+# JanConnect — AI-Powered Citizen Grievance Navigator
 
-## Overview
+JanConnect is an AI-powered citizen grievance platform designed to make public-service complaint registration simpler, faster, and more accessible.
 
-JanConnect is a citizen grievance platform that runs as a **single Spring Boot application** serving both the frontend and backend from `http://localhost:8081`.
+The application allows citizens to describe a grievance using **text or voice**, understand the issue using AI, identify missing information, route the complaint to the appropriate department, generate a structured complaint, attach evidence and location information, submit the complaint, and track its status through a timeline.
 
-## Architecture
+JanConnect is implemented as a **single Spring Boot application** that serves both the frontend and backend from:
 
-```
-Browser → http://localhost:8081
-             │
-             ▼
-    Spring Boot (port 8081)
-    ├── /                    → React Frontend (index.html)
-    ├── /assets/**           → Static JS/CSS/Images
-    ├── /api/auth/**         → Authentication APIs
-    ├── /api/complaints/**   → Complaint APIs
-    ├── /api/ai/**           → AI Classification API
-    └── /actuator/health     → Health Check
-             │
-             ▼
-    MySQL (localhost:3306/janconnect)
-```
+**http://localhost:8081**
 
-## Running the Application
+---
 
-### Prerequisites
-- Java 21
-- Maven (or use included `mvnw`)
-- MySQL 8.x running on `localhost:3306`
+## 🚀 Project Overview
 
-### Steps
+Citizens often face difficulties when reporting public-service problems such as:
 
-1. **Start MySQL** and ensure the `janconnect` database exists (or it will be created automatically)
+- Water supply issues
+- Electricity problems
+- Road damage
+- Drainage problems
+- Garbage and waste-management issues
 
-2. **Set environment variable for DB password** (optional — defaults to `Gokul@2008`):
-   ```powershell
-   $env:DB_PASSWORD = "your_mysql_password"
-   ```
+Common challenges include:
 
-3. **Run the application**:
-   ```powershell
-   cd jan
-   .\mvnw.cmd spring-boot:run
-   ```
-   Or run `JanConnectApplication.java` directly from IntelliJ IDEA.
+- Not knowing which department is responsible
+- Not knowing what information is required
+- Difficulty writing formal complaints
+- Language barriers
+- Limited digital literacy
+- Difficulty tracking complaint progress
+- Lack of transparency after submission
 
-4. **Open browser**: http://localhost:8081
+JanConnect addresses these problems through a guided AI-assisted grievance workflow.
 
-## Demo Accounts
+### Core Workflow
 
-| Email | Password | Role |
-|-------|----------|------|
-| demo@janconnect.com | Demo@123 | Citizen |
-| citizen@janconnect.com | Citizen@123 | Citizen |
-| admin@janconnect.com | Admin@123 | Admin |
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` — Register new user
-- `POST /api/auth/login` — Login (returns JWT)
-- `GET /api/auth/me` — Get current user (requires JWT)
-- `POST /api/auth/logout` — Logout
-
-### Complaints
-- `POST /api/complaints` — Create complaint
-- `GET /api/complaints` — List user's complaints
-- `GET /api/complaints/{id}` — Get complaint by ID
-- `PUT /api/complaints/{id}` — Update complaint
-- `DELETE /api/complaints/{id}` — Delete complaint
-
-### Evidence & Location
-- `POST /api/complaints/{id}/evidence` — Upload photo evidence (max 10MB)
-- `GET /api/complaints/{id}/timeline` — Get complaint timeline
-
-### AI
-- `POST /api/ai/classify` — AI grievance classification
-
-## Configuration
-
-Edit `src/main/resources/application.properties`:
-
-```properties
-server.port=8081
-spring.datasource.password=${DB_PASSWORD:Gokul@2008}
-jwt.secret=${JWT_SECRET:your-secret}
-ai.api.key=${AI_API_KEY:}
-```
-
-## Frontend Rebuild
-
-If you modify the React frontend:
-
-```powershell
-cd C:\Users\rajas\Downloads\JanConnect\frontend
-npm run build
-Copy-Item dist\* -Destination ..\jan\jan\src\main\resources\static -Recurse -Force
-```
-
-Then restart the Spring Boot application.
+```text
+Voice / Text Input
+        ↓
+AI Understands Grievance
+        ↓
+Extract Complaint Information
+        ↓
+Check Missing Information
+        ↓
+Identify Department
+        ↓
+Route Complaint
+        ↓
+Generate Structured Complaint
+        ↓
+Citizen Reviews & Confirms
+        ↓
+Add Photo / Evidence
+        ↓
+Add Location
+        ↓
+Submit Complaint
+        ↓
+Generate Complaint ID
+        ↓
+Track Complaint Timeline
+        ↓
+Resolution
